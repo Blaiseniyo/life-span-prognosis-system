@@ -1,0 +1,34 @@
+@startuml Life Span Pregnosis Class Diagrams
+
+class User {
+  - String firstName
+  - String lastName
+  - String email
+  - String password
+  - String role
+  + logIn(): void
+  + viewProfile(): void
+  + updateProfile(): void
+}
+
+class Admin {
+  + initiateRegistration(): void
+  + exportUserData(): void
+  + exportStatistics(): void
+}
+
+class Patient {
+  - Date dateOfBirth
+  - String registrationCode
+  - boolean isHIVPositive
+  - Date diagnosisDate
+  - boolean isOnART
+  - Date ARTStartDate
+  - String countryISOCode
+  + computeLifespan(): void
+}
+
+User <|-- Admin
+User <|-- Patient
+
+@enduml

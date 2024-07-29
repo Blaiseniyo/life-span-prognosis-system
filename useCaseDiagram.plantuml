@@ -1,0 +1,91 @@
+@startuml Life Prognosis Management Tool
+left to right direction
+skinparam actorStyle awesome
+skinparam usecaseBackgroundColor #EFEFEF
+skinparam usecaseBorderColor #999999
+
+actor Admin as admin #FF6347
+actor Patient as patient #4169E1
+
+rectangle "Life Prognosis Management Tool" {
+  usecase "Authenticate" as AUTH
+  
+  usecase "Initiate Registration" as AUC1
+  usecase "Export User Data" as AUC6
+  usecase "Export Statistics" as AUC7
+
+  usecase "Complete Registration" as PUC1
+  usecase "Log In" as PUC2
+  usecase "View Profile Data" as PUC3
+  usecase "Update Profile Data" as PUC4
+
+  admin --> AUTH
+  AUTH --> AUC1
+  AUTH --> AUC6
+  AUTH --> AUC7
+
+  patient --> PUC1
+  patient --> PUC2
+  PUC2 --> AUTH
+  AUTH --> PUC3
+  AUTH --> PUC4
+}
+
+@enduml
+
+
+
+@startuml Life Prognosis App
+
+left to right direction
+
+skinparam Style strictuml
+' skinparam actorStyle awesome
+skinparam usecaseBackgroundColor #EFEFEF
+skinparam usecaseBorderColor #999999
+
+actor Admin as admin #FF6347
+actor Patient as patient #4169E1
+actor Bash as bash #32CD32
+
+rectangle "Life Prognosis App" {
+  ' usecase "Authenticate" as AUTH
+  
+  usecase "Initiate Registration" as AUC1
+  usecase "Export User Data" as AUC6
+  usecase "Export Statistics" as AUC7
+
+  usecase "Complete Registration" as PUC1
+  usecase "Log In" as PUC2
+  usecase "View Profile Data" as PUC3
+  usecase "Update Profile Data" as PUC4
+
+  usecase "Save Data to File" as BUC1
+  usecase "Retrieve Data from File" as BUC2
+
+  admin --> PUC2
+  PUC2 --> AUC1
+  PUC2 --> AUC6
+  PUC2 --> AUC7
+
+  patient --> PUC1
+  patient --> PUC2
+  ' PUC2 --> PUC2
+  PUC2 --> PUC3
+  PUC2 --> PUC4
+
+  BUC1 --> bash
+  BUC2 --> bash
+}
+
+AUC1 ..> BUC1 : <<include>>
+AUC6 ..> BUC2 : <<include>>
+AUC7 ..> BUC2 : <<include>>
+PUC1 ..> BUC1 : <<include>>
+PUC3 ..> BUC2 : <<include>>
+PUC4 ..> BUC1 : <<include>>
+
+@enduml
+
+
+
