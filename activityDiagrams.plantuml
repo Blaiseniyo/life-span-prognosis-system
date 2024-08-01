@@ -1,0 +1,53 @@
+
+@startuml Life Prognosis App - Activity Diagram
+
+|Patient|
+start
+:Open App;
+if (Has Account?) then (no)
+  :Complete Registration;
+  :Save Data to File;
+else (yes)
+endif
+:Log In;
+
+if (Login Successful?) then (yes)
+  fork
+    :View Profile Data;
+    :Retrieve Data from File;
+  fork again
+    :Update Profile Data;
+    :Save Data to File;
+  end fork
+else (no)
+  stop
+endif
+
+|Admin|
+fork
+:Log In;
+if (Login Successful?) then (yes)
+  fork
+    :Initiate Registration;
+    :Save Data to File;
+  fork again
+    :Export User Data;
+    :Retrieve Data from File;
+  fork again
+    :Export Statistics;
+    :Retrieve Data from File;
+  end fork
+else (no)
+  stop
+endif
+
+|Bash|
+fork
+:Save Data to File;
+fork again
+:Retrieve Data from File;
+end fork
+
+stop
+
+@enduml
