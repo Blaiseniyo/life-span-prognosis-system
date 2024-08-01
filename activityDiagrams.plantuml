@@ -5,8 +5,10 @@
 start
 :Open App;
 if (Has Account?) then (no)
-  :Complete Registration;
-  :Save Data to File;
+  :Complete Registration
+         (Enter Details);
+   :Compute Life Expectancy;
+  :Save User Info to File;
 else (yes)
 endif
 :Log In;
@@ -17,6 +19,7 @@ if (Login Successful?) then (yes)
     :Retrieve Data from File;
   fork again
     :Update Profile Data;
+    :Compute Life Expectancy;
     :Save Data to File;
   end fork
 else (no)
@@ -29,6 +32,7 @@ fork
 if (Login Successful?) then (yes)
   fork
     :Initiate Registration;
+    :Generate UUID;
     :Save Data to File;
   fork again
     :Export User Data;

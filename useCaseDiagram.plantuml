@@ -13,7 +13,9 @@ actor Bash as bash #32CD32
 
 rectangle "Life Prognosis App" {
   ' usecase "Authenticate" as AUTH
-  
+
+  usecase "Admin View" as AUV1
+  usecase "Compute Lifespan" as CPU1
   usecase "Initiate Registration" as AUC1
   usecase "Export User Data" as AUC6
   usecase "Export Statistics" as AUC7
@@ -25,14 +27,24 @@ rectangle "Life Prognosis App" {
 
   usecase "Save Data to File" as BUC1
   usecase "Retrieve Data from File" as BUC2
+  usecase "Check if user is an Admin" as BUC3
+
+
+ PUC2 --> AUV1
+ AUV1 ..> BUC3 : <<include>>
+
+ AUV1 -[#FF6347]-> AUC1
+ AUV1 -[#FF6347]->AUC6
+ AUV1 -[#FF6347]->AUC7
+
 
   admin --> PUC2
-  PUC2 --> AUC1
-  PUC2 --> AUC6
-  PUC2 --> AUC7
+'  PUC2 --> AUC1
+'  PUC2 --> AUC6
+'  PUC2 --> AUC7
 
-  patient --> PUC1
-  patient --> PUC2
+  patient -[#4169E1]-> PUC1
+  patient -[#4169E1]-> PUC2
   ' PUC2 --> PUC2
   PUC2 --> PUC3
   PUC2 --> PUC4
@@ -40,13 +52,20 @@ rectangle "Life Prognosis App" {
   BUC1 --> bash
   BUC2 --> bash
 }
+'
+'AUC6 ..> BUC3 : <<include>>
+'AUC1 ..> BUC3 : <<include>>
+'AUC7 ..> BUC3 : <<include>>
 
-AUC1 ..> BUC1 : <<include>>
 AUC6 ..> BUC2 : <<include>>
 AUC7 ..> BUC2 : <<include>>
+
 PUC1 ..> BUC1 : <<include>>
 PUC3 ..> BUC2 : <<include>>
+AUC1 ..> BUC1 : <<include>>
 PUC4 ..> BUC1 : <<include>>
+PUC4 ..> CPU1 : <<include>>
+PUC1 ..> CPU1 : <<include>>
 
 @enduml
 
