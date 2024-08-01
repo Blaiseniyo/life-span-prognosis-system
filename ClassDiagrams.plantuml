@@ -1,39 +1,87 @@
-@startuml Life Span Pregnosis Class Diagrams
+' @startuml Life Span Pregnosis Class Diagrams
+
+' class User {
+'   - String firstName
+'   - String lastName
+'   - String email
+'   - String password
+'   - String role
+'   + logIn(): void
+'   + viewProfile(): void
+'   + updateProfile(): void
+' }
+
+' class Admin {
+'   + initiateRegistration(): void
+'   + exportUserData(): void
+'   + exportStatistics(): void
+' }
+
+' class Patient {
+'   - Date dateOfBirth
+'   - String registrationCode
+'   - boolean isHIVPositive
+'   - Date diagnosisDate
+'   - boolean isOnART
+'   - Date ARTStartDate
+'   - String countryISOCode
+'   + computeLifespan(): void
+' }
+
+' User <|-- Admin
+' User <|-- Patient
+
+' @enduml
+
+
+@startuml Life Prognosis App - Class Diagram
+
 enum UserRole {
   ADMIN
   PATIENT
 }
 
 class User {
-  - String firstName
-  - String lastName
-  - String email
-  - String password
-  - UserRole role
+  -id: String
+  -firstName: String
+  -lastName: String
+  -email: String
+  -password: String
+  -role: UserRole
   + logIn(): void
   + viewProfile(): void
   + updateProfile(): void
 }
 
-class Admin {
-  + initiateRegistration(): void
-  + exportUserData(): void
-  + exportStatistics(): void
-}
-
 class Patient {
-  - Date dateOfBirth
-  - String registrationCode
-  - boolean isHIVPositive
-  - Date diagnosisDate
-  - boolean isOnART
-  - Date ARTStartDate
-  - String countryISOCode
-  - Double computedLifespan
-  + computeLifespan(): void
+  -registrationCode: String
+  -dateOfBirth: Date
+  -isHIVPositive: boolean
+  -diagnosisDate: Date
+  -isOnART: boolean
+  -ARTStartDate: Date
+  -countryISOCode: String
+  -commputedLifespan: int
+  +completeRegistration(): void
+  +computeLifespan(): int
 }
 
-User <|-- Admin
+class Admin {
+  +initiateRegistration(): String
+  +exportUserData(): void
+  +exportStatistics(): void
+}
+
+
+class BashFileManager {
+  +saveData(data: String): void
+  +retrieveData(key: String): String
+}
+
 User <|-- Patient
+User <|-- Admin
+User --> "1" UserRole
+User ..> BashFileManager : uses
+Admin ..> BashFileManager : uses
 
 @enduml

@@ -1,0 +1,122 @@
+
+' @startuml Life Prognosis App - Activity Diagram
+
+' |Patient|
+' start
+' :Open App;
+' if (Has Account?) then (no)
+'   :Complete Registration;
+'   :Save Data to File;
+' else (yes)
+' endif
+' :Log In;
+
+' if (Login Successful?) then (yes)
+'   fork
+'     :View Profile Data;
+'     :Retrieve Data from File;
+'   fork again
+'     :Update Profile Data;
+'     :Save Data to File;
+'   end fork
+' else (no)
+'   stop
+' endif
+
+' |Admin|
+' fork
+' :Log In;
+' if (Login Successful?) then (yes)
+'   fork
+'     :Initiate Registration;
+'     :Save Data to File;
+'   fork again
+'     :Export User Data;
+'     :Retrieve Data from File;
+'   fork again
+'     :Export Statistics;
+'     :Retrieve Data from File;
+'   end fork
+' else (no)
+'   stop
+' endif
+
+' |Bash|
+' fork
+' :Save Data to File;
+' fork again
+' :Retrieve Data from File;
+' end fork
+
+' stop
+
+' @enduml
+
+
+@startuml Life Prognosis App - Simplified Activity Diagram
+
+|Admin|
+|Patient|
+|Bash|
+
+|Admin|
+start
+:Log In;
+if (Login Successful?) then (yes)
+  fork
+    :Initiate Registration;
+    |Bash|
+    :Save Registration Code;
+    |Admin|
+  fork again
+    :Export User Data;
+    |Bash|
+    :Retrieve User Data;
+    |Admin|
+  fork again
+    :Export Statistics;
+    |Bash|
+    :Retrieve Aggregate Data;
+    |Admin|
+  end fork
+else (no)
+  stop
+endif
+
+|Patient|
+start
+if (New User?) then (yes)
+  :Complete Registration;
+  |Bash|
+  :Save Patient Data;
+  |Patient|
+else (no)
+endif
+:Log In;
+if (Login Successful?) then (yes)
+  fork
+    :View Profile Data;
+    |Bash|
+    :Retrieve Patient Data;
+    |Patient|
+  fork again
+    :Update Profile Data;
+    |Bash|
+    :Save Updated Data;
+    |Patient|
+  fork again
+    :Compute Lifespan;
+    |Bash|
+    :Retrieve Health Data;
+    |Patient|
+  end fork
+else (no)
+  stop
+endif
+
+|Bash|
+:Handle File Operations;
+
+stop
+
+@enduml
