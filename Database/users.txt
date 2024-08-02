@@ -1,0 +1,4 @@
+
+0e44f59c-433a-4e4c-8330-56cd34438a05	admin@lifespan.org	Admin	User	ADMIN	$6$5c10a16899ff96fd$cSR.BlU83.KGh5maLWFFjukMBk2vTbJ0NS9WQkS2nqJyWB0OJqGdDsqU.piw0pXzD3mXyFm9NFX5hCQe4y54c1	
+cf49b4be-ba39-4223-b899-9f3f4527a6f0	test@gmail.com	Admin	User	ADMIN	$6$5c10a16899ff96fd$cSR.BlU83.KGh5maLWFFjukMBk2vTbJ0NS9WQkS2nqJyWB0OJqGdDsqU.piw0pXzD3mXyFm9NFX5hCQe4y54c1
+9dbb4d40-7a21-4ce4-a0d0-7cf7269202a3	maka@test.com	test	Name	PATIENT	$6$5c10a16899ff96fd$9RfACTruQIZ2uV8.DxM5/wYsslmZbjX0bHaNm8uMChX6vXsrd4O2F10iHeWRS0aMFdieIbs8QsVm4IYvGTYlQ.	4/1/42	Rw	false	9dbb4d40-7a21-4ce4-a0d0-7cf7269202a30	9dbb4d40-7a21-4ce4-a0d0-7cf7269202a31	
