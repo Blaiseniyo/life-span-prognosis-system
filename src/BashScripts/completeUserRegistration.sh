@@ -9,24 +9,26 @@ password=$6
 dob=$7
 countryISOCode=$8
 isHIVPositive=$9
-diagnosisDate=$10
-isOnART=$11
+diagnosisDate=${10}
+isOnART=${11}
 artStartDate=${12}
+lifeExpectancy=${13}
 
 
 salt=5c10a16899ff96fd
 
-
+# echo "Debug isOnART: $diagnosisDate" >&2
+# echo "Debug isOnART: $isOnART" >&2
 # # Find the user by email using grep and cut
 # user_line=$(grep "$email" ./Database/users.txt)
 
 country_line=$(grep "$countryISOCode" ./Database/life-expectancy.csv)
 
-echo "Debug: Grep result: $country_line" >&2
+# echo "Debug: Grep result: $country_line" >&2
 
 if [ -n "$country_line" ]; then
     hashed_password=$(openssl passwd -6 -salt "$salt"  "$password")
-    echo "${hashed_password}"
+    # echo "${hashed_password}"
     file_path="./Database/users.txt"
 
 # Use awk to update the line in place
@@ -34,7 +36,7 @@ awk -v id="$id" -v email="$email" -v firstName="$firstName" -v lastName="$lastNa
     -v role="$role" -v hashed_password="$hashed_password" -v dob="$dob" \
     -v countryISOCode="$countryISOCode" -v isHIVPositive="$isHIVPositive" \
     -v diagnosisDate="$diagnosisDate" -v isOnART="$isOnART" \
-    -v artStartDate="$artStartDate" '
+    -v artStartDate="$artStartDate" -v lifeExpectancy="$lifeExpectancy" '
 BEGIN { FS = OFS = "\t" }
 {
     if ($1 == id) {
