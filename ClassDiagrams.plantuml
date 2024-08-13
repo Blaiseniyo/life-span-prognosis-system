@@ -41,7 +41,7 @@ enum UserRole {
   PATIENT
 }
 
-class User {
+abstract User {
   -id: String
   -firstName: String
   -lastName: String

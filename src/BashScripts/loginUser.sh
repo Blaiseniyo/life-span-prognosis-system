@@ -8,7 +8,7 @@ password=$2
 # Find the user by email using grep and cut
 user_line=$(grep "$email" ./Database/users.txt)
 
-echo "Debug: Grep result: $user_line" >&2
+# echo "Debug: Grep result: $user_line" >&2
 
 
 salt=5c10a16899ff96fd

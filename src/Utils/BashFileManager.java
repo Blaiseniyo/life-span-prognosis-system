@@ -1,6 +1,10 @@
 package Utils;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Date;
 import java.util.Scanner;
 
 import Enum.UserRole;
@@ -22,9 +26,85 @@ public class BashFileManager {
         }
     }
 
+    public static Double countryLifeExpectancy(String countryISOCode) throws IOException, InterruptedException {
+        try {
+            ProcessBuilder proccessBuilder = new ProcessBuilder("src/BashScripts/countryLifeExpectancy.sh",
+                    countryISOCode);
+            Process process = proccessBuilder.start();
+            String output = readOutput(process.getInputStream());
+
+            int exitCode = process.waitFor();
+
+            return Double.parseDouble(output.trim());
+            // return exitCode;
+        } catch (IOException | InterruptedException e) {
+            throw e;
+        }
+    }
+
+    // Helper method to read the output from an InputStream
+    private static String readOutput(InputStream inputStream) throws IOException {
+        StringBuilder output = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                output.append(line).append("\n");
+            }
+        }
+        return output.toString();
+    }
+
     public static int exportData(String filename) throws IOException, InterruptedException {
         try {
             ProcessBuilder proccessBuilder = new ProcessBuilder("src/BashScripts/exportFile.sh", filename);
+
+            Process process = proccessBuilder.start();
+            int exitCode = process.waitFor();
+
+            return exitCode;
+        } catch (IOException | InterruptedException e) {
+            throw e;
+        }
+    }
+
+    public static int iCallenderExport(Date funeralDate) throws IOException, InterruptedException {
+        Scanner processScanner = null;
+        try {
+            ProcessBuilder proccessBuilder = new ProcessBuilder("src/BashScripts/icallender.sh", DateConverter.dateToString(funeralDate));
+
+            proccessBuilder.redirectErrorStream(true);
+            Process process = proccessBuilder.start();
+            int exitCode = process.waitFor();
+
+            processScanner = new Scanner(process.getInputStream());
+            // int exitCode = process.waitFor();
+
+            while (processScanner.hasNextLine()) {
+                String line = processScanner.nextLine();
+                System.out.println(line);
+                if (line.startsWith("Debug:")) {
+                    System.out.println(line); // Print debug information
+                } else if (line.equals("User not found") || line.equals("Invalid password")) {
+                    System.out.println(line);
+                } else {
+                    // String[] userData = line.split("\t");
+                    System.out.println("Complete registration successful!");
+                }
+            }
+
+            return exitCode;
+        } catch (IOException | InterruptedException e) {
+            throw e;
+        }finally {
+            if (processScanner != null) {
+                processScanner.close();
+            }
+        }
+    }
+
+    public static int exportPatientStatisticsData(String filename) throws IOException, InterruptedException {
+        try {
+            ProcessBuilder proccessBuilder = new ProcessBuilder("src/BashScripts/exportPatientStatistics.sh", filename);
 
             Process process = proccessBuilder.start();
             int exitCode = process.waitFor();
@@ -39,84 +119,89 @@ public class BashFileManager {
         Scanner processScanner = null;
         try {
 
-            System.out.println(patient.getId());
-            System.out.println(patient.getEmail());
-            System.out.println(patient.getRole().toString());
-            System.out.println(patient.getLastName());
-            System.out.println(password);
-            System.out.println(
-                    patient.getDob() != null
-                            ? "" + patient.getDob().getDay() + "/" + patient.getDob().getMonth() + "/"
-                                    + patient.getDob().getYear()
-                            : "");
-            System.out.println(patient.getCountryISOCode());
-            System.out.println(String.valueOf(patient.getIsHIVPositive()));
-            System.out.println(
-                    patient.getDiagnosisDate() != null
-                            ? "" + patient.getDiagnosisDate().getDay() + "/" + patient.getDiagnosisDate().getMonth()
-                                    + "/" + patient.getDiagnosisDate().getYear()
-                            : "");
-            System.out.println(String.valueOf(patient.getIsOnART()));
-            System.out.println(
-                    patient.getArtStartDate() != null
-                            ? "" + patient.getArtStartDate().getDay() + "/" + patient.getArtStartDate().getMonth() + "/"
-                                    + patient.getArtStartDate().getYear()
-                            : "");
+            System.out.println("Completing registration for " + patient.getEmail());
 
-            // List<String> commands = new ArrayList<String>();
-            // commands.add("src/BashScripts/completeUserRegistration.sh");
-            // commands.add(patient.getId());
-            // commands.add(patient.getEmail());
-            // commands.add(patient.getFirstName());
-            // commands.add(patient.getLastName());
-            // commands.add(patient.getRole().toString());
-            // commands.add(password);
-            // commands.add(
-            // patient.getDob() != null
-            // ? "" + patient.getDob().getDay() + "/" + patient.getDob().getMonth() + "/"
-            // + patient.getDob().getYear()
-            // : "");
-            // commands.add(patient.getCountryISOCode());
-            // commands.add(String.valueOf(patient.getIsHIVPositive()));
-            // commands.add(
-            // patient.getDiagnosisDate() != null
-            // ? "" + patient.getDiagnosisDate().getDay() + "/" +
-            // patient.getDiagnosisDate().getMonth()
-            // + "/" + patient.getDiagnosisDate().getYear()
-            // : "");
-            // commands.add(String.valueOf(patient.getIsOnART()));
-            // commands.add(
-            // patient.getArtStartDate() != null
-            // ? "" + patient.getArtStartDate().getDay() + "/" +
-            // patient.getArtStartDate().getMonth() + "/"
-            // + patient.getArtStartDate().getYear()
-            // : "");
+            String dob = DateConverter.dateToString(patient.getDob());
+            System.out.println(dob);
+            String artStartDate = patient.getArtStartDate() == null ? ""
+                    : DateConverter.dateToString(patient.getArtStartDate());
+            String diagnosisDate = patient.getDiagnosisDate() == null ? ""
+                    : DateConverter.dateToString(patient.getDiagnosisDate());
+            String lifeExpectancy = String.valueOf(patient.getLifeExpectancy());
+            String completeRegistrationScriptPath = System.getenv("COMPLETE_REGISTRATION_SCRIPT_PATH");
 
-            // ProcessBuilder proccessBuilder = new ProcessBuilder(commands.toArray(new
-            // String[commands.size()]));
             ProcessBuilder processBuilder = new ProcessBuilder(
-                    "src/BashScripts/completeUserRegistration.sh",
+                    completeRegistrationScriptPath,
                     patient.getId(),
                     patient.getEmail(),
                     patient.getFirstName(),
                     patient.getLastName(),
                     patient.getRole().toString(),
                     password,
-                    patient.getDob() != null
-                            ? patient.getDob().getDay() + "/" + patient.getDob().getMonth() + "/"
-                                    + patient.getDob().getYear()
-                            : "",
+                    dob,
                     patient.getCountryISOCode(),
                     String.valueOf(patient.getIsHIVPositive()),
-                    patient.getDiagnosisDate() != null
-                            ? patient.getDiagnosisDate().getDay() + "/" + patient.getDiagnosisDate().getMonth() + "/"
-                                    + patient.getDiagnosisDate().getYear()
-                            : "",
+                    diagnosisDate,
                     String.valueOf(patient.getIsOnART()),
-                    patient.getArtStartDate() != null
-                            ? patient.getArtStartDate().getDay() + "/" + patient.getArtStartDate().getMonth() + "/"
-                                    + patient.getArtStartDate().getYear()
-                            : "");
+                    artStartDate, lifeExpectancy);
+
+            processBuilder.redirectErrorStream(true);
+            Process process = processBuilder.start();
+
+            processScanner = new Scanner(process.getInputStream());
+            // int exitCode = process.waitFor();
+
+            while (processScanner.hasNextLine()) {
+                String line = processScanner.nextLine();
+                System.out.println(line);
+                if (line.startsWith("Debug:")) {
+                    System.out.println(line); // Print debug information
+                } else if (line.equals("User not found") || line.equals("Invalid password")) {
+                    System.out.println(line);
+                } else {
+                    // String[] userData = line.split("\t");
+                    System.out.println("Complete registration successful!");
+                }
+            }
+            return 1;
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if (processScanner != null) {
+                processScanner.close();
+            }
+        }
+    }
+
+    public static int updateProfile(Patient patient) throws IOException, InterruptedException {
+        Scanner processScanner = null;
+
+        try {
+            String dob = DateConverter.dateToString(patient.getDob());
+            String artStartDate = patient.getArtStartDate() == null ? ""
+                    : DateConverter.dateToString(patient.getArtStartDate());
+            String diagnosisDate = patient.getDiagnosisDate() == null ? ""
+                    : DateConverter.dateToString(patient.getDiagnosisDate());
+            String lifeExpectancy = String.valueOf(patient.getLifeExpectancy());
+            // String updateProfileScriptPath =
+            // System.getenv("COMPLETE_REGISTRATION_SCRIPT_PATH");
+            String updateProfileScriptPath = "src/BashScripts/updatePatientPofile.sh";
+
+            ProcessBuilder processBuilder = new ProcessBuilder(
+                    updateProfileScriptPath,
+                    patient.getId(),
+                    patient.getEmail(),
+                    patient.getFirstName(),
+                    patient.getLastName(),
+                    patient.getRole().toString(),
+                    // "12345",
+                    dob,
+                    patient.getCountryISOCode(),
+                    String.valueOf(patient.getIsHIVPositive()),
+                    diagnosisDate,
+                    String.valueOf(patient.getIsOnART()),
+                    artStartDate, lifeExpectancy);
 
             processBuilder.redirectErrorStream(true);
             Process process = processBuilder.start();
@@ -131,18 +216,14 @@ public class BashFileManager {
                 } else if (line.equals("User not found") || line.equals("Invalid password")) {
                     System.out.println(line);
                 } else {
-                    String[] userData = line.split("\t");
-                    System.out.println("Login successful!");
-                    System.out.println("User Information:");
-                    System.out.println("ID: " + userData[0]);
-                    System.out.println("Email: " + userData[1]);
-                    System.out.println("Name: " + userData[2]);
-                    System.out.println("Date of Birth: " + userData[3]);
-                    System.out.println("Gender: " + userData[4]);
+                    // String[] userData = line.split("\t");
+                    System.out.println("Updated successful!");
                 }
             }
             return 1;
         } catch (IOException e) {
+            System.out.println("An error occurred during profile update. Please try again.");
+            e.printStackTrace();
             throw e;
         } finally {
             if (processScanner != null) {
@@ -191,7 +272,7 @@ public class BashFileManager {
         Scanner processScanner = null;
         try {
             ProcessBuilder proccessBuilder = new ProcessBuilder("src/BashScripts/loginUser.sh", email, password);
-            proccessBuilder.redirectErrorStream(true);
+            proccessBuilder.redirectErrorStream(false);
             Process process = proccessBuilder.start();
 
             processScanner = new Scanner(process.getInputStream());
@@ -200,13 +281,14 @@ public class BashFileManager {
                 String result = processScanner.nextLine();
 
                 if (result.equals("User not found") || result.equals("Invalid password")) {
-                    System.out.println(result);
+                    System.out.println("\n \n Invalid email or password. Please try again.");
                     return null;
                 }
 
                 String[] userData = result.split("\t");
                 return userData;
             }
+
             System.out.println("An error occurred during authentication.");
             return null;
 
