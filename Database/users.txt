@@ -1,11 +1,8 @@
 
 0e44f59c-433a-4e4c-8330-56cd34438a05	admin@lifespan.org	Admin	User	ADMIN	$6$5c10a16899ff96fd$cSR.BlU83.KGh5maLWFFjukMBk2vTbJ0NS9WQkS2nqJyWB0OJqGdDsqU.piw0pXzD3mXyFm9NFX5hCQe4y54c1	
-dd815ffd-b4bc-4b52-890a-33407fa3e3f7	test@email.com	test1	Tom	PATIENT	$6$5c10a16899ff96fd$.7DQPdaKLER9idTIruf7NpjIlC6ZuprAjCzfLdtFhZWDWNBMGfkzdABnT/qvKM8Ptc1YL6x7nTkHMRWdSQ3iI1	19/08/2006	Kenya	true	12/08/2023	true	22/08/2023	41
+dd815ffd-b4bc-4b52-890a-33407fa3e3f7	test@email.com	Test1	User	PATIENT	$6$5c10a16899ff96fd$.7DQPdaKLER9idTIruf7NpjIlC6ZuprAjCzfLdtFhZWDWNBMGfkzdABnT/qvKM8Ptc1YL6x7nTkHMRWdSQ3iI1	18/08/1994	Rwanda	true	18/06/2014	true	18/06/2015
 627c59ac-48d7-4cb1-ac3a-d2654e6b041b	blaise@niyonkuru.com	Blaise	Niyo	PATIENT	$6$5c10a16899ff96fd$.7DQPdaKLER9idTIruf7NpjIlC6ZuprAjCzfLdtFhZWDWNBMGfkzdABnT/qvKM8Ptc1YL6x7nTkHMRWdSQ3iI1	18/06/1997	Rwanda	false		false		40
 7a7245bb-412a-48c0-9e0e-73b2ecd5b02f	people@cmu.edu	Peter	Johnson	PATIENT	$6$5c10a16899ff96fd$.7DQPdaKLER9idTIruf7NpjIlC6ZuprAjCzfLdtFhZWDWNBMGfkzdABnT/qvKM8Ptc1YL6x7nTkHMRWdSQ3iI1	18/06/1997	Rwanda	true	18/06/2000	true	18/06/2002	30
-dd815ffd-b4bc-4b52-890a-33407fa3e3f7	john.doe@example.com	John	Doe	PATIENT	$6$5c10a16899ff96fd$.7DQPdaKLER9idTIruf7NpjIlC6ZuprAjCzfLdtFhZWDWNBMGfkzdABnT/qvKM8Ptc1YL6x7nTkHMRWdSQ3iI1	15/03/1985	Kenya	true	10/09/2020	true	25/09/2020	42
-627c59ac-48d7-4cb1-ac3a-d2654e6b041b	emma.smith@example.com	Emma	Smith	PATIENT	$6$5c10a16899ff96fd$.7DQPdaKLER9idTIruf7NpjIlC6ZuprAjCzfLdtFhZWDWNBMGfkzdABnT/qvKM8Ptc1YL6x7nTkHMRWdSQ3iI1	22/07/1990	Rwanda	false			false		50
-7a7245bb-412a-48c0-9e0e-73b2ecd5b02f	michael.johnson@example.com	Michael	Johnson	PATIENT	$6$5c10a16899ff96fd$.7DQPdaKLER9idTIruf7NpjIlC6ZuprAjCzfLdtFhZWDWNBMGfkzdABnT/qvKM8Ptc1YL6x7nTkHMRWdSQ3iI1	03/12/1978	Uganda	true	15/06/2019	true	01/07/2019	38
 9c4b2a1d-6e8f-4d7c-af3b-2e5f1c9d0a8b	sarah.williams@example.com	Sarah	Williams	PATIENT	$6$5c10a16899ff96fd$.7DQPdaKLER9idTIruf7NpjIlC6ZuprAjCzfLdtFhZWDWNBMGfkzdABnT/qvKM8Ptc1YL6x7nTkHMRWdSQ3iI1	18/09/1995	Tanzania	true	20/03/2022	false		45
 5d6e7f8g-9h0i-1j2k-3l4m-5n6o7p8q9r0s	david.brown@example.com	David	Brown	PATIENT	$6$5c10a16899ff96fd$.7DQPdaKLER9idTIruf7NpjIlC6ZuprAjCzfLdtFhZWDWNBMGfkzdABnT/qvKM8Ptc1YL6x7nTkHMRWdSQ3iI1	30/05/1982	Burundi	false			false		48
 1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p	olivia.taylor@example.com	Olivia	Taylor	PATIENT	$6$5c10a16899ff96fd$.7DQPdaKLER9idTIruf7NpjIlC6ZuprAjCzfLdtFhZWDWNBMGfkzdABnT/qvKM8Ptc1YL6x7nTkHMRWdSQ3iI1	11/11/1988	Ethiopia	true	05/08/2021	true	20/08/2021	40
