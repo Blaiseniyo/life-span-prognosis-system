@@ -29,5 +29,3 @@ The Life Prognosis Management Tool is a command-line application for managing us
     - Make sure that you are still in the root directory of the app and then commnad below:
 
     - `java -cp bin:Database Main`
-
-` `
