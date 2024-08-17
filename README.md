@@ -13,10 +13,21 @@ The Life Prognosis Management Tool is a command-line application for managing us
 
 ## Setup and Installation
 
-1. Clone the repository or download the project files:
+- Clone the repository or download the project files: 
+ `git clone https://github.com/Blaiseniyo/life-span-prognosis-system.git`
 
-3. Give execute permissions to all Bash scripts:
-
+- Give execute permissions to all Bash scripts:
 ` chmod +x src/BashScripts/*.sh`
 
-4. Compile the Java file:
+- Compile the program: 
+    -  cd in the project working directory. eg: `cd Lifiplan\ Prognosis\ Project/ `
+    - compile the program by running this command in your terminal. Make sure you are in the working directory of the cloned project: `javac -d bin -cp src src/**/*.java`.
+
+    The above command should create a bin folder in folders with all the compile classes.
+
+- Running the program: 
+    - Make sure that you are still in the root directory of the app and then commnad below:
+
+    - `java -cp bin:Database Main`
+
+` `

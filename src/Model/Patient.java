@@ -179,7 +179,7 @@ public class Patient extends User {
                             System.out.println("You cannot update ART start date if you are not on ART");
                             break;
                         }
-                        System.out.println("Enter new ART Start Date: ");
+                        System.out.print("Enter new ART Start Date: ");
                         String newARTStartDate = scanner.nextLine();
                         this.setArtStartDate(DateConverter.stringToDate(newARTStartDate));
                         break;

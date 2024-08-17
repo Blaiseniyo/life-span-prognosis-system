@@ -119,8 +119,6 @@ public class BashFileManager {
         Scanner processScanner = null;
         try {
 
-            System.out.println("Completing registration for " + patient.getEmail());
-
             String dob = DateConverter.dateToString(patient.getDob());
             System.out.println(dob);
             String artStartDate = patient.getArtStartDate() == null ? ""
@@ -128,7 +126,8 @@ public class BashFileManager {
             String diagnosisDate = patient.getDiagnosisDate() == null ? ""
                     : DateConverter.dateToString(patient.getDiagnosisDate());
             String lifeExpectancy = String.valueOf(patient.getLifeExpectancy());
-            String completeRegistrationScriptPath = System.getenv("COMPLETE_REGISTRATION_SCRIPT_PATH");
+            // String completeRegistrationScriptPath = System.getenv("COMPLETE_REGISTRATION_SCRIPT_PATH");
+            String completeRegistrationScriptPath = "src/BashScripts/completeUserRegistration.sh";
 
             ProcessBuilder processBuilder = new ProcessBuilder(
                     completeRegistrationScriptPath,
@@ -155,9 +154,9 @@ public class BashFileManager {
                 String line = processScanner.nextLine();
                 System.out.println(line);
                 if (line.startsWith("Debug:")) {
-                    System.out.println(line); // Print debug information
+                    // System.out.println(line); // Print debug information
                 } else if (line.equals("User not found") || line.equals("Invalid password")) {
-                    System.out.println(line);
+                    // System.out.println(line);
                 } else {
                     // String[] userData = line.split("\t");
                     System.out.println("Complete registration successful!");
